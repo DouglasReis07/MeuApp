@@ -4,28 +4,36 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from '../styles/register.styles';
 
-export default function Register() {
+const Register = () => {
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-      {/* Setinha no topo */}
+      {/* Botão de voltar */}
       <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
         <Ionicons name="arrow-back" size={28} color="#00AEEF" />
       </TouchableOpacity>
 
-      {/* Título e botões centralizados */}
+      {/* Conteúdo principal */}
       <View style={styles.content}>
         <Text style={styles.title}>Cadastro</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => alert('Quero contratar')}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/contratarRegister')}
+        >
           <Text style={styles.buttonText}>QUERO CONTRATAR</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => alert('Sou Freelancer')}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/freelancerRegister')}
+        >
           <Text style={styles.buttonText}>SOU FREELANCER</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
+
+export default Register;

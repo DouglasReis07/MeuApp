@@ -5,14 +5,14 @@ export default function RootLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: false, // oculta o header padrão em todas as telas, opcional
+        headerShown: false,
       }}
     >
-      {/* Registra as telas disponíveis automaticamente */}
-      {/* 
-        - (tabs)/index.tsx é a rota '/'
-        - (tabs)/register.tsx é a rota '/register'
-      */}
+      {/* Registra manualmente as telas da pasta /tabs */}
+      <Stack.Screen name="tabs/index" />
+      <Stack.Screen name="tabs/register" />
+      <Stack.Screen name="tabs/contratarRegister" />
+      <Stack.Screen name="tabs/freelancerRegister" />
     </Stack>
   );
 }

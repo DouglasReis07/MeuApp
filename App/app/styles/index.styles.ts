@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000', // fundo preto
+    backgroundColor: '#000000',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -11,21 +11,33 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff', // texto branco
+    color: '#fff',
     marginBottom: 30,
     textAlign: 'center',
   },
-  input: {
+  inputContainer: {
     width: '100%',
-    height: 50,
-    backgroundColor: '#1a1a1a', // fundo dos inputs
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1a1a1a',
     borderRadius: 8,
-    paddingHorizontal: 15,
-    color: '#fff',
     marginBottom: 15,
+    paddingHorizontal: 10,
+  },
+  inputWithIcon: {
+    flex: 1,
+    height: 50,
+    color: '#fff',
+    paddingLeft: 10,
+  },
+  inputIcon: {
+    marginLeft: 5,
+  },
+  eyeButton: {
+    padding: 5,
   },
   loginButton: {
-    backgroundColor: '#00AEEF', // azul vibrante
+    backgroundColor: '#00AEEF',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
@@ -38,8 +50,37 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   registerLink: {
-    color: '#00AEEF',            // azul
+    color: '#00AEEF',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
+  },
+  orText: {
+    color: '#aaa',
+    textAlign: 'center',
+    marginVertical: 15,
+    width: '100%',
+  },
+  socialContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
+    marginBottom: 10,
+    width: '100%',
+  },
+  socialButtonGoogle: {
+    backgroundColor: '#fff',
+    width: 50,
+    height: 50,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  socialButtonFacebook: {
+    backgroundColor: '#fff',
+    width: 50,
+    height: 51,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
