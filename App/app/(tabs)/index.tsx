@@ -1,50 +1,47 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Animated } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { styles } from '../styles/home.styles';
+import { styles } from '../styles/index.styles';
 
-export default function Home() {
+export default function Login() {
   const router = useRouter();
-
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const translateY = useRef(new Animated.Value(30)).current;
-
-  useEffect(() => {
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 800,
-        useNativeDriver: true,
-      }),
-      Animated.timing(translateY, {
-        toValue: 0,
-        duration: 800,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  }, []);
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
   return (
     <View style={styles.container}>
-      <Animated.Text style={[styles.title, { opacity: fadeAnim }]}>
-        Bem-vindo ao FreeHub
-      </Animated.Text>
+      <Text style={styles.title}>Login</Text>
 
-      <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY }] }}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push('/empresa')}
-        >
-          <Text style={styles.buttonText}>Sou Empresa</Text>
-        </TouchableOpacity>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="#999"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push('/freelancer')}
-        >
-          <Text style={styles.buttonText}>Sou Freelancer</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        placeholderTextColor="#999"
+        secureTextEntry
+        value={senha}
+        onChangeText={setSenha}
+      />
+
+      <TouchableOpacity style={styles.loginButton} onPress={() => alert('Login não implementado')}>
+        <Text style={styles.loginButtonText}>Entrar</Text>
+      </TouchableOpacity>
+
+      <View style={{ flexDirection: 'row', marginTop: 20 }}>
+        <Text style={{ color: '#fff', fontWeight: 'normal' }}>Não tem conta? </Text>
+
+        <TouchableOpacity onPress={() => router.push('/register')}>
+          <Text style={styles.registerLink}>Cadastre-se</Text>
         </TouchableOpacity>
-      </Animated.View>
+      </View>
     </View>
   );
 }
