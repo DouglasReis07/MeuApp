@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -39,19 +39,36 @@ export default function FreelancerRegister() {
         />
         <TextInput
           style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          placeholderTextColor="#aaa"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Celular"
+          keyboardType="phone-pad"
+          placeholderTextColor="#aaa"
+        />
+        <TextInput
+          style={styles.input}
           placeholder="CPF"
           keyboardType="numeric"
           placeholderTextColor="#aaa"
         />
         <TextInput
           style={styles.input}
-          placeholder="Data de nascimento"
+          placeholder="RG"
           placeholderTextColor="#aaa"
         />
         <TextInput
           style={styles.input}
-          placeholder="Senha"
-          secureTextEntry
+          placeholder="CEP"
+          keyboardType="numeric"
+          placeholderTextColor="#aaa"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Serviços"
           placeholderTextColor="#aaa"
         />
       </View>
