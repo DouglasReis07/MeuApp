@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { FontAwesome, AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { styles } from '../styles/index.styles';
@@ -9,12 +9,53 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch('https://meufreelancer.netlify.app/.netlify/functions/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          password: senha.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      // Só passa se o backend retornar token
+      if (response.status !== 200 || !data?.token) {
+        Alert.alert('Erro', 'Email ou senha incorretos.');
+        return;
+      }
+
+      // Aqui poderia salvar o token, se quiser manter sessão
+      // await AsyncStorage.setItem('token', data.token);
+
+      router.push('/pagina');
+
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
 
-      {/* Container do input de email com ícone */}
+      {/* Input de Email */}
       <View style={styles.inputContainer}>
         <MaterialIcons name="email" size={24} color="#999" style={styles.inputIcon} />
         <TextInput
@@ -28,7 +69,7 @@ export default function Login() {
         />
       </View>
 
-      {/* Container do input de senha com ícone e botão olho */}
+      {/* Input de Senha */}
       <View style={styles.inputContainer}>
         <Ionicons name="lock-closed" size={24} color="#999" style={styles.inputIcon} />
         <TextInput
@@ -48,12 +89,18 @@ export default function Login() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.loginButton} onPress={() => alert('Login não implementado')}>
-        <Text style={styles.loginButtonText}>Entrar</Text>
+      {/* Botão de Login */}
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin} disabled={loading}>
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.loginButtonText}>Entrar</Text>
+        )}
       </TouchableOpacity>
 
       <Text style={styles.orText}>Entre com</Text>
 
+      {/* Botões Sociais */}
       <View style={styles.socialContainer}>
         <TouchableOpacity style={styles.socialButtonGoogle}>
           <AntDesign name="google" size={28} color="#DB4437" />
@@ -63,9 +110,9 @@ export default function Login() {
         </TouchableOpacity>
       </View>
 
+      {/* Link de Cadastro */}
       <View style={{ flexDirection: 'row', marginTop: 20 }}>
         <Text style={{ color: '#fff', fontWeight: 'normal' }}>Não tem conta? </Text>
-
         <TouchableOpacity onPress={() => router.push('/register')}>
           <Text style={styles.registerLink}>Cadastre-se</Text>
         </TouchableOpacity>
